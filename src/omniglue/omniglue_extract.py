@@ -27,7 +27,7 @@ MATCH_THRESHOLD = 1e-3
 class OmniGlue:
     # TODO: Add class docstring
 
-    def __init__(self, og_export: str, sp_export: str | None = None, dino_export: str | None = None) -> None:
+    def __init__(self, og_export: str, sp_export: str | None = None, dino_export: str | None = None, sp_custom_conf: dict | None = None) -> None:
         """Initialize OmniGlue with specified exports."""
         
         tf_device, torch_device = get_device_framework()
@@ -39,7 +39,7 @@ class OmniGlue:
 
         if sp_export is not None:
             if sp_export.endswith((".pth", "pt")): 
-                self.sp_extract = superpoint_extract.SuperPointExtract_Pytorch(sp_export, torch_device)
+                self.sp_extract = superpoint_extract.SuperPointExtract_Pytorch(sp_export, torch_device, sp_custom_conf)
             else:
                 self.sp_extract = superpoint_extract.SuperPointExtract(sp_export, tf_device)
         

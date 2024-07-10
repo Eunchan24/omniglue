@@ -231,11 +231,11 @@ class SuperPointExtract_Pytorch:
     images to (320x240) or (640x480).
     """
 
-    def __init__(self, model_path: str, device):
+    def __init__(self, model_path: str, device, custom_conf):
         """Initialize the SuperPoint model."""
         self.device = device
         self.model_path = model_path
-        self.model = superpoint_pytorch.SuperPoint()
+        self.model = superpoint_pytorch.SuperPoint(**custom_conf)
         self.model.load_state_dict(torch.load(self.model_path, map_location=self.device))
         self.model = self.model.to(device=self.device)
         self.model.eval()
